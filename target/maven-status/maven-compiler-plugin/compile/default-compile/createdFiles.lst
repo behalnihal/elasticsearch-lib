@@ -1,0 +1,6 @@
+com\escustom\elasticsearchquery\ElasticsearchQueryApplication.class
+com\escustom\elasticsearchquery\dto\SearchResponse.class
+com\escustom\elasticsearchquery\service\ElasticsearchService.class
+com\escustom\elasticsearchquery\controller\SearchController.class
+com\escustom\elasticsearchquery\dto\SearchRequest.class
+com\escustom\elasticsearchquery\config\ElasticsearchConfig.class

@@ -4,8 +4,12 @@ This library provides a simple interface for Elasticsearch operations using the 
 
 ## Setup
 
-1. Add this library to your project.
-2. Ensure you have the Elasticsearch Java API dependencies in your project.
+1. Download this project.
+2. Open project in desired IDE.
+3. run command
+ ``` mvn clean install ```
+4. Now add the dependency in your pom.xml file
+5. Ensure you have the Elasticsearch Java API dependencies in your project.
 
 ## Usage
 
@@ -21,6 +25,11 @@ ElasticsearchClient client = ElasticsearchConfig.getClient("username", "password
 ElasticsearchOperations.createIndex(client, indexName);
 ```
 
+### Search Index
+```java
+boolean foo = ElasticsearchOperations.searchIndex(client, indexName);
+```
+this method returns a boolean if the index indexName exists or not.
 
 ### Create Document
 

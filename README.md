@@ -1,21 +1,83 @@
-# elasticsearch-lib
-A Spring Boot library for simplifying Elasticsearch queries in Spring applications. It provides a simple API for executing Elasticsearch queries without the need to directly interact with the Elasticsearch client.
+# Elasticsearch Library
+
+This library provides a simple interface for Elasticsearch operations using the Elasticsearch Java API.
+
+## Setup
+
+1. Add this library to your project.
+2. Ensure you have the Elasticsearch Java API dependencies in your project.
+
+## Usage
+
+First, create an Elasticsearch client:
+
+```java
+ElasticsearchClient client = ElasticsearchConfig.getClient("username", "password");
+```
+
+### Create Index
+
+```java
+ElasticsearchOperations.createIndex(client, indexName);
+```
 
 
+### Create Document
 
-Components Interaction :- 
+```java
+YourClass document = new YourClass();
+String id = ElasticsearchOperations.createDocument(client, "index_name", document);
+```
 
-![image](https://github.com/user-attachments/assets/2f538f01-29e9-4dc4-ae46-ece26b57cfbb)
+### Get Document by ID
+
+```java
+ObjectNode document = ElasticsearchOperations.getDocumentById(client, "index_name", "document_id");
+```
+
+### Search Documents
+
+```java
+List<ObjectNode> results = ElasticsearchOperations.searchDocuments(client, "index_name", "search_term", "field_name");
+```
+
+### Update Document
+
+Full update:
+```java
+ObjectNode fullUpdateBody = new ObjectMapper().createObjectNode();
+fullUpdateBody.put("field1", "new_value1");
+fullUpdateBody.put("field2", "new_value2");
+String result = ElasticsearchOperations.fullUpdateDocument(client, "index_name", "document_id", fullUpdateBody);
+```
+
+Partial update:
+```java
+Map<String, Object> partialUpdateFields = new HashMap<>();
+partialUpdateFields.put("field1", "new_value1");
+String result = ElasticsearchOperations.partialUpdateDocument(client, "index_name", "document_id", partialUpdateFields);
+```
 
 
-1) User : external app using dependency
-2) REST API : receives user's request
-3) Core lib : receives req from REST API -> build query -> send query to elastic client
-4) Config : configuration settings used by core lib
-5) ES client wrapper: communicates directly with Elasticsearch
-6) Elasticsearch : cluster that stores data
+### Delete Document
 
-Features : - 
-1) Supports multiple queries
-2) error handling and input validation
-3) can configure connection settings
+```java
+String result = ElasticsearchOperations.deleteDocument(client, "index_name", "document_id");
+```
+
+
+### Get Documents by Date Range
+
+```java
+long startTimestamp = 1641203425;
+long endTimestamp = 1641280856;
+List<ObjectNode> documents = ElasticsearchOperations.getDocumentsByDateRange(client, "my_index", "timestamp", startTimestamp, endTimestamp);
+```
+The timestamps in the example are Unix timestamps, which represent the number of seconds that have elapsed since January 1, 1970 (UTC). 
+## Error Handling
+
+All methods throw `IOException`. Make sure to handle these exceptions in your code.
+
+## Note
+
+This library assumes you're using the Elasticsearch Java API. Ensure you have the correct dependencies in your project.

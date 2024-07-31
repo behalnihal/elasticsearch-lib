@@ -16,7 +16,7 @@ This library provides a simple interface for Elasticsearch operations using the 
 First, create an Elasticsearch client:
 
 ```java
-ElasticsearchClient client = ElasticsearchConfig.getClient("username", "password");
+ElasticsearchClient client = ElasticsearchConfig.getElasticsearchClient("username", "password");
 ```
 
 ### Create Index

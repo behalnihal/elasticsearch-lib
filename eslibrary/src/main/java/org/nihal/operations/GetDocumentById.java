@@ -3,6 +3,8 @@ package org.nihal.operations;
 import co.elastic.clients.elasticsearch.ElasticsearchClient;
 import co.elastic.clients.elasticsearch.core.GetResponse;
 import co.elastic.clients.json.jackson.JacksonJsonpMapper;
+import com.fasterxml.jackson.databind.JsonNode;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
@@ -17,9 +19,10 @@ public class GetDocumentById {
                 ObjectNode.class
         );
         if(!response.found()){
-            return null;
+            JsonNode emptyNode = objectMapper.createObjectNode();
+            System.out.println("document with id " + id + " not found in index " + indexName);
+            return objectMapper.convertValue(emptyNode, documentClass);
         }
         return objectMapper.convertValue(response.source(), documentClass);
-    };
-
+    }
 }

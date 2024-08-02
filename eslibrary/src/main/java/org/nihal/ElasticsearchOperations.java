@@ -19,10 +19,6 @@ public class ElasticsearchOperations {
         client.indices().create(c -> c.index(indexName));
     }
 
-    public static <T> void createDocument(ElasticsearchClient client, String indexName, String id, T document) throws IOException {
-        CreateDocument.createDocument(client, indexName, id, document);
-    }
-
     public static <T> T getDocumentById(ElasticsearchClient client, String indexName, String id, Class<T> documentClass) throws IOException {
         return GetDocumentById.getDocumentById(client, indexName, id, documentClass);
     }
@@ -34,23 +30,9 @@ public class ElasticsearchOperations {
     public static List<ObjectNode> getDocumentsByDateRange(ElasticsearchClient client, String indexName, String dateField, String startDate, String endDate, String format) throws IOException {
         return DateRangeOperation.getDocumentsByDateRange(client, indexName, dateField, startDate, endDate, format);
     }
-
-    public static void DeleteDocument(ElasticsearchClient client, String indexName, String id) throws IOException {
-        DeleteDocument.deleteDocument(client, indexName, id);
-        return;
-    }
-
+    
     public static boolean searchIndex(ElasticsearchClient client, String indexName) throws IOException{
         return SearchIndex.searchIndex(client, indexName);
     }
 
-    public static void updateDocument(ElasticsearchClient client, String indexName, String id, ObjectNode update) throws IOException {
-        UpdateDocument.fullUpdateDocument(client, indexName, id, update);
-        return;
-    }
-
-    public static void partialUpdateDocument(ElasticsearchClient client, String indexName, String id, Map<String, Object> updateFields) throws IOException {
-        UpdateDocument.partialUpdateDocument(client, indexName, id, updateFields);
-        return;
-    }
 }

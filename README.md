@@ -40,11 +40,15 @@ List<ObjectNode> results = ElasticsearchOperations.searchDocuments(client, "inde
 ### Get Documents by Date Range
 
 ```java
-long startTimestamp = 1641203425;
-long endTimestamp = 1641280856;
-List<ObjectNode> documents = ElasticsearchOperations.getDocumentsByDateRange(client, "my_index", "timestamp", startTimestamp, endTimestamp);
+List<ObjectNode> documents = getDocumentsByDateRange(
+    client,
+    "my_index",
+    "date",
+    "01/01/2024",
+    "04/01/2024",
+    "dd/MM/yyyy"
+);
 ```
-The timestamps in the example are Unix timestamps, which represent the number of seconds that have elapsed since January 1, 1970 (UTC). 
 ## Error Handling
 
 All methods throw `IOException`. Make sure to handle these exceptions in your code.

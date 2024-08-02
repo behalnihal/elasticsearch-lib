@@ -11,14 +11,15 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class DateRangeOperation {
-    public static List<ObjectNode> getDocumentsByDateRange(ElasticsearchClient client, String indexName, String dateField, long startTimestamp, long endTimestamp) throws IOException {
+    public static List<ObjectNode> getDocumentsByDateRange(ElasticsearchClient client, String indexName, String dateField, String startDate, String endDate, String dateFormat) throws IOException {
         SearchResponse<ObjectNode> response = client.search(s -> s
                         .index(indexName)
                         .query(q -> q
                                 .range(r -> r
                                         .field(dateField)
-                                        .gte(JsonData.fromJson(String.valueOf(startTimestamp)))
-                                        .lte(JsonData.fromJson(String.valueOf(endTimestamp)))
+                                        .gte(JsonData.of(startDate))
+                                        .lte(JsonData.of(endDate))
+                                        .format(dateFormat)
                                 )
                         ),
                 ObjectNode.class

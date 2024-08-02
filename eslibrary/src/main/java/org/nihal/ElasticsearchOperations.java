@@ -18,6 +18,7 @@ public class ElasticsearchOperations {
     public static void createIndex(ElasticsearchClient client, String indexName) throws IOException {
         client.indices().create(c -> c.index(indexName));
     }
+
     public static <T> void createDocument(ElasticsearchClient client, String indexName, String id, T document) throws IOException {
         CreateDocument.createDocument(client, indexName, id, document);
     }
@@ -30,8 +31,8 @@ public class ElasticsearchOperations {
         return SearchDocument.searchDocuments(client, indexName, searchTerm, field);
     }
 
-    public static List<ObjectNode> getDocumentsByDateRange(ElasticsearchClient client, String indexName, String dateField, long startTimestamp, long endTimestamp) throws IOException {
-        return DateRangeOperation.getDocumentsByDateRange(client, indexName, dateField, startTimestamp, endTimestamp);
+    public static List<ObjectNode> getDocumentsByDateRange(ElasticsearchClient client, String indexName, String dateField, String startDate, String endDate, String format) throws IOException {
+        return DateRangeOperation.getDocumentsByDateRange(client, indexName, dateField, startDate, endDate, format);
     }
 
     public static void DeleteDocument(ElasticsearchClient client, String indexName, String id) throws IOException {

@@ -19,24 +19,11 @@ First, create an Elasticsearch client:
 ElasticsearchClient client = ElasticsearchConfig.getElasticsearchClient("username", "password");
 ```
 
-### Create Index
-
-```java
-ElasticsearchOperations.createIndex(client, indexName);
-```
-
 ### Search Index
 ```java
 boolean foo = ElasticsearchOperations.searchIndex(client, indexName);
 ```
 this method returns a boolean if the index indexName exists or not.
-
-### Create Document
-
-```java
-YourClass document = new YourClass();
-String id = ElasticsearchOperations.createDocument(client, "index_name", document);
-```
 
 ### Get Document by ID
 
@@ -49,31 +36,6 @@ ObjectNode document = ElasticsearchOperations.getDocumentById(client, "index_nam
 ```java
 List<ObjectNode> results = ElasticsearchOperations.searchDocuments(client, "index_name", "search_term", "field_name");
 ```
-
-### Update Document
-
-Full update:
-```java
-ObjectNode fullUpdateBody = new ObjectMapper().createObjectNode();
-fullUpdateBody.put("field1", "new_value1");
-fullUpdateBody.put("field2", "new_value2");
-String result = ElasticsearchOperations.fullUpdateDocument(client, "index_name", "document_id", fullUpdateBody);
-```
-
-Partial update:
-```java
-Map<String, Object> partialUpdateFields = new HashMap<>();
-partialUpdateFields.put("field1", "new_value1");
-String result = ElasticsearchOperations.partialUpdateDocument(client, "index_name", "document_id", partialUpdateFields);
-```
-
-
-### Delete Document
-
-```java
-String result = ElasticsearchOperations.deleteDocument(client, "index_name", "document_id");
-```
-
 
 ### Get Documents by Date Range
 

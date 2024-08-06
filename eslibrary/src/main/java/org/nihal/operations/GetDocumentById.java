@@ -12,7 +12,7 @@ import java.io.IOException;
 
 public class GetDocumentById {
     private static final ObjectMapper objectMapper = new JacksonJsonpMapper().objectMapper();
-    public static <T> T getDocumentById(ElasticsearchClient client, String indexName, String id, Class<T> documentClass) throws IOException {
+    public static JsonNode getDocumentById(ElasticsearchClient client, String indexName, String id) throws IOException {
         GetResponse<ObjectNode> response = client.get(g -> g
                         .index(indexName)
                         .id(id),
@@ -21,8 +21,8 @@ public class GetDocumentById {
         if(!response.found()){
             JsonNode emptyNode = objectMapper.createObjectNode();
             System.out.println("document with id " + id + " not found in index " + indexName);
-            return objectMapper.convertValue(emptyNode, documentClass);
+            return emptyNode;
         }
-        return objectMapper.convertValue(response.source(), documentClass);
+        return response.source();
     }
 }

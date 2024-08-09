@@ -19,8 +19,8 @@ public class ElasticsearchOperations {
         client.indices().create(c -> c.index(indexName));
     }
 
-    public static <T> T getDocumentById(ElasticsearchClient client, String indexName, String id, Class<T> documentClass) throws IOException {
-        return GetDocumentById.getDocumentById(client, indexName, id, documentClass);
+    public static JsonNode getDocumentById(ElasticsearchClient client, String indexName, String id) throws IOException {
+        return GetDocumentById.getDocumentById(client, indexName, id);
     }
 
     public static List<ObjectNode> searchDocument(ElasticsearchClient client, String indexName, String searchTerm, String field) throws IOException{

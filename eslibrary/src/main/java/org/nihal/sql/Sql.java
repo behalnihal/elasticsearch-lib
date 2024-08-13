@@ -7,7 +7,7 @@ import co.elastic.clients.elasticsearch.sql.QueryResponse;
 import java.io.IOException;
 
 public class Sql {
-    public static String SqlOperation(ElasticsearchClient client, String query) throws IOException {
+    public static String sql(ElasticsearchClient client, String query) throws IOException {
         QueryRequest request = new QueryRequest.Builder()
                 .query(query)
                 .format("json")

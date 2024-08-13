@@ -50,6 +50,25 @@ List<ObjectNode> documents = getDocumentsByDateRange(
 );
 ```
 
+### Sql Query Builder
+
+```java
+SQLQueryBuilder builder = new SQLQueryBuilder();
+String query = builder
+        .select("column1", "column2", ... )
+        .from("table")
+        .limit(10)
+        .build();
+```
+
+### Sql Method
+
+```java
+String response = Sql.sql(client, query);
+System.out.println(response);
+```
+
+
 The default date format used by Elasticsearch is yyyy-MM-dd. 
 You can use multiple date formats such as dd/MM/yyyy, dd-MM-yyyy, etc.
 ## Error Handling

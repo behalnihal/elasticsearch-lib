@@ -58,10 +58,31 @@ You can use multiple date formats such as dd/MM/yyyy, dd-MM-yyyy, etc.
 ```java
 SQLQueryBuilder builder = new SQLQueryBuilder();
 String query = builder
-        .select("column1", "column2", ... )
-        .from("table")
+        .select("id", "title")
+        .from("articles")
+        .where("publish_date > '2023-01-01'")
+        .match("content", "elasticsearch")
+        .query("machine learning")
+        .score("1 / LOG10(1 + age)")
+        .count("*")
+        .countDistinct("author")
+        .groupBy("category")
+        .having("COUNT(*) > 5")
+        .orderBy("SCORE() DESC")
         .limit(10)
         .build();
+
+        System.out.println(query);
+```
+This would generate a query like :
+```chatinput
+SELECT id, title, COUNT(*), COUNT(DISTINCT author), MATCH(content, 'elasticsearch'), QUERY('machine learning'), SCORE(1 / LOG10(1 + age)) 
+FROM articles 
+WHERE publish_date > '2023-01-01' 
+GROUP BY category 
+HAVING COUNT(*) > 5 
+ORDER BY SCORE() DESC 
+LIMIT 10
 ```
 
 ### Sql Method

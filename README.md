@@ -50,6 +50,9 @@ List<ObjectNode> documents = getDocumentsByDateRange(
 );
 ```
 
+The default date format used by Elasticsearch is yyyy-MM-dd. 
+You can use multiple date formats such as dd/MM/yyyy, dd-MM-yyyy, etc.
+
 ### Sql Query Builder
 
 ```java
@@ -69,8 +72,6 @@ System.out.println(response);
 ```
 
 
-The default date format used by Elasticsearch is yyyy-MM-dd. 
-You can use multiple date formats such as dd/MM/yyyy, dd-MM-yyyy, etc.
 ## Error Handling
 
 All methods throw `IOException`. Make sure to handle these exceptions in your code.

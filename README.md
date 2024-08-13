@@ -69,7 +69,7 @@ String query = builder
         .groupBy("category")
         .having("COUNT(*) > 5")
         .orderBy("SCORE() DESC")
-        .limit(10)
+        .limit(15)
         .build();
 
         System.out.println(query);
@@ -82,7 +82,7 @@ WHERE publish_date > '2023-01-01'
 GROUP BY category 
 HAVING COUNT(*) > 5 
 ORDER BY SCORE() DESC 
-LIMIT 10
+LIMIT 15
 ```
 
 ### Sql Method

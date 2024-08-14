@@ -91,7 +91,7 @@ LIMIT 15
 String response = Sql.sql(client, query);
 System.out.println(response);
 ```
-
+This method return a JSON String.
 
 ## Error Handling
 

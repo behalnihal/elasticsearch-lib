@@ -1,4 +1,5 @@
 package org.nihal.SqlQueryBuilder;
+
 import java.util.*;
 
 public class SQLQueryBuilder {
@@ -14,62 +15,90 @@ public class SQLQueryBuilder {
     private String scoreFunction;
 
     public SQLQueryBuilder select(String... fields) {
-        selectFields.addAll(Arrays.asList(fields));
+        if (fields != null) {
+            selectFields.addAll(Arrays.asList(fields));
+        }
         return this;
     }
 
     public SQLQueryBuilder from(String table) {
-        this.fromTable = table;
+        if (table != null && !table.isEmpty()) {
+            this.fromTable = table;
+        } else {
+            throw new IllegalStateException("FROM clause is required");
+        }
         return this;
     }
 
     public SQLQueryBuilder where(String condition) {
-        whereClauses.add(condition);
+        if (condition != null && !condition.isEmpty()) {
+            whereClauses.add(condition);
+        }
         return this;
     }
 
     public SQLQueryBuilder groupBy(String... fields) {
-        groupByClauses.addAll(Arrays.asList(fields));
+        if (fields != null) {
+            groupByClauses.addAll(Arrays.asList(fields));
+        }
         return this;
     }
 
     public SQLQueryBuilder having(String condition) {
-        havingClauses.add(condition);
+        if (condition != null && !condition.isEmpty()) {
+            havingClauses.add(condition);
+        }
         return this;
     }
 
     public SQLQueryBuilder orderBy(String... fields) {
-        orderByClauses.addAll(Arrays.asList(fields));
+        if (fields != null) {
+            orderByClauses.addAll(Arrays.asList(fields));
+        }
         return this;
     }
 
     public SQLQueryBuilder limit(int limit) {
-        this.limit = limit;
+        if (limit >= 0) {
+            this.limit = limit;
+        } else {
+            throw new IllegalStateException("Limit must be a non-negative integer");
+        }
         return this;
     }
 
     public SQLQueryBuilder match(String field, String query) {
-        fullTextFunctions.add("MATCH(" + field + ", '" + query + "')");
+        if (field != null && !field.isEmpty() && query != null && !query.isEmpty()) {
+            whereClauses.add("MATCH(" + field + ", '" + query + "')");
+        }
         return this;
     }
 
     public SQLQueryBuilder query(String query) {
-        fullTextFunctions.add("QUERY('" + query + "')");
+        if (query != null && !query.isEmpty()) {
+            fullTextFunctions.add("QUERY('" + query + "')");
+        }
         return this;
     }
 
     public SQLQueryBuilder score(String scoreExpression) {
-        this.scoreFunction = "SCORE(" + scoreExpression + ")";
+        if (scoreExpression != null && !scoreExpression.isEmpty()) {
+            this.scoreFunction = "SCORE(" + scoreExpression + ")";
+        }
         return this;
     }
 
     public SQLQueryBuilder count(String field) {
-        aggregateFunctions.add("COUNT(" + field + ")");
+        if (field != null && !field.isEmpty()) {
+            aggregateFunctions.add("COUNT(" + field + ")");
+        }
         return this;
     }
 
     public SQLQueryBuilder countDistinct(String field) {
-        aggregateFunctions.add("COUNT(DISTINCT " + field + ")");
+        if (field != null && !field.isEmpty()) {
+            aggregateFunctions.add("COUNT(DISTINCT " + field + ")");
+        }
         return this;
     }
 
@@ -82,31 +111,23 @@ public class SQLQueryBuilder {
 
         if (!selectFields.isEmpty()) {
             query.append(String.join(", ", selectFields));
-        }
-
-        if (!aggregateFunctions.isEmpty()) {
-            if (!selectFields.isEmpty()) query.append(", ");
-            query.append(String.join(", ", aggregateFunctions));
-        }
-
-        if (!fullTextFunctions.isEmpty()) {
-            if (!selectFields.isEmpty() || !aggregateFunctions.isEmpty()) query.append(", ");
-            query.append(String.join(", ", fullTextFunctions));
-        }
-
-        if (scoreFunction != null) {
-            if (!selectFields.isEmpty() || !aggregateFunctions.isEmpty() || !fullTextFunctions.isEmpty()) query.append(", ");
-            query.append(scoreFunction);
-        }
-
-        if (selectFields.isEmpty() && aggregateFunctions.isEmpty() && fullTextFunctions.isEmpty() && scoreFunction == null) {
+        } else {
             query.append("*");
         }
 
         query.append(" FROM ").append(fromTable);
 
-        if (!whereClauses.isEmpty()) {
-            query.append(" WHERE ").append(String.join(" AND ", whereClauses));
+        if (!whereClauses.isEmpty() || !fullTextFunctions.isEmpty()) {
+            query.append(" WHERE ");
+            if (!whereClauses.isEmpty()) {
+                query.append(String.join(" AND ", whereClauses));
+            }
+            if (!fullTextFunctions.isEmpty()) {
+                if (!whereClauses.isEmpty()) {
+                    query.append(" AND ");
+                }
+                query.append(String.join(" AND ", fullTextFunctions));
+            }
         }
 
         if (!groupByClauses.isEmpty()) {

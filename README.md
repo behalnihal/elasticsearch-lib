@@ -1,6 +1,6 @@
 # Elasticsearch Library
 
-This library provides a simple interface for Elasticsearch operations using the Elasticsearch Java API.
+This library provides a simple interface for Elasticsearch/Opensearch operations using the Elasticsearch Java API.
 
 ## Setup
 
@@ -11,47 +11,81 @@ This library provides a simple interface for Elasticsearch operations using the 
 4. Now add the dependency in your pom.xml file
 5. Ensure you have the Elasticsearch Java API dependencies in your project.
 
+
+## Configuration
+
+To use this library, create an `application.properties` file in your project's `src/main/resources` directory with the following structure:
+
+```properties
+search.host=localhost
+search.port=9200
+search.scheme=https
+search.username=your_username
+search.password=your_password
+search.trustStorePath=/path/to/truststore.jks
+search.trustStorePassword=truststore_password
+```
+Adjust this file according to your needs.
 ## Usage
 
-First, create an Elasticsearch client:
-
+Initialize library like this:
 ```java
-ElasticsearchClient client = ElasticsearchConfig.getElasticsearchClient("username", "password");
+SearchLibrary library = new SearchLibrary("elasticsearch");
+or 
+SearchLibrary library = new SearchLibrary("opensearch");
 ```
 
-### Search Index
-```java
-boolean foo = ElasticsearchOperations.searchIndex(client, indexName);
-```
-this method returns a boolean if the index indexName exists or not.
+[//]: # (### Search Index)
+
+[//]: # (```java)
+
+[//]: # (boolean foo = ElasticsearchOperations.searchIndex&#40;client, indexName&#41;;)
+
+[//]: # (```)
+[//]: # (this method returns a boolean if the index indexName exists or not.)
 
 ### Get Document by ID
 
 ```java
-ObjectNode document = ElasticsearchOperations.getDocumentById(client, "index_name", "document_id");
+String doc = library.getDocumentById("index_name", "id");
 ```
 
-### Search Documents
+[//]: # (### Search Documents)
 
-```java
-List<ObjectNode> results = ElasticsearchOperations.searchDocuments(client, "index_name", "search_term", "field_name");
-```
+[//]: # ()
+[//]: # (```java)
 
-### Get Documents by Date Range
+[//]: # (List<ObjectNode> results = ElasticsearchOperations.searchDocuments&#40;client, "index_name", "search_term", "field_name"&#41;;)
 
-```java
-List<ObjectNode> documents = getDocumentsByDateRange(
-    client,
-    "my_index",
-    "dateField",
-    "startDate",
-    "endDate",
-    "dateFormat"
-);
-```
+[//]: # (```)
 
-The default date format used by Elasticsearch is yyyy-MM-dd. 
-You can use multiple date formats such as dd/MM/yyyy, dd-MM-yyyy, etc.
+[//]: # (### Get Documents by Date Range)
+
+[//]: # ()
+[//]: # (```java)
+
+[//]: # (List<ObjectNode> documents = getDocumentsByDateRange&#40;)
+
+[//]: # (    client,)
+
+[//]: # (    "my_index",)
+
+[//]: # (    "dateField",)
+
+[//]: # (    "startDate",)
+
+[//]: # (    "endDate",)
+
+[//]: # (    "dateFormat")
+
+[//]: # (&#41;;)
+
+[//]: # (```)
+
+[//]: # ()
+[//]: # (The default date format used by Elasticsearch is yyyy-MM-dd. )
+
+[//]: # (You can use multiple date formats such as dd/MM/yyyy, dd-MM-yyyy, etc.)
 
 ### Sql Query Builder
 
@@ -85,13 +119,11 @@ ORDER BY SCORE() DESC
 LIMIT 15
 ```
 
-### Sql Method
+### Sql Query
 
 ```java
-String response = Sql.sql(client, query);
-System.out.println(response);
+JsonNode res = library.sql(query);
 ```
-This method return a JSON String.
 
 ## Error Handling
 

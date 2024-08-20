@@ -1,5 +1,6 @@
 package org.nihal.opensearch;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.apache.http.HttpEntity;
@@ -71,25 +72,27 @@ public class OpensearchClient implements ClientInterface {
         }
     }
 
+
     @Override
-    public String sql(String query) throws IOException {
-        String url = "https://localhost:9201/_sql";
-        String params = "{\"query\": \"" + query + "\"}";
-
-        HttpClient client = HttpClientBuilder.create().build();
-        HttpPost request = new HttpPost(url);
-        request.setHeader("Content-Type", "application/json");
-
-        StringEntity entity = new StringEntity(params);
-        request.setEntity(entity);
-
-        HttpResponse response = client.execute(request);
-        HttpEntity responseEntity = response.getEntity();
-        if (responseEntity != null) {
-            String responseString = EntityUtils.toString(responseEntity);
-            return responseString;
-        }else{
-            throw new IOException();
-        }
+    public JsonNode sql(String query) throws IOException {
+//        String url = "https://localhost:9201/_sql";
+//        String params = "{\"query\": \"" + query + "\"}";
+//
+//        HttpClient client = HttpClientBuilder.create().build();
+//        HttpPost request = new HttpPost(url);
+//        request.setHeader("Content-Type", "application/json");
+//
+//        StringEntity entity = new StringEntity(params);
+//        request.setEntity(entity);
+//
+//        HttpResponse response = client.execute(request);
+//        HttpEntity responseEntity = response.getEntity();
+//        if (responseEntity != null) {
+//            String responseString = EntityUtils.toString(responseEntity);
+//            return responseString;
+//        }else{
+//            throw new IOException();
+//        }
+        return null;
     }
 }

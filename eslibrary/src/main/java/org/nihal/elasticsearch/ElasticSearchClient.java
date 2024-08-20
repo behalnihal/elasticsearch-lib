@@ -8,7 +8,6 @@ import co.elastic.clients.json.JsonpUtils;
 import co.elastic.clients.json.jackson.JacksonJsonpMapper;
 import co.elastic.clients.transport.ElasticsearchTransport;
 import co.elastic.clients.transport.rest_client.RestClientTransport;
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.apache.http.HttpHost;
@@ -54,7 +53,7 @@ public class ElasticSearchClient implements ClientInterface {
 
     private ObjectMapper mapper = new ObjectMapper();
     @Override
-    public JsonNode sql(String query) throws IOException {
+    public String sql(String query) throws IOException {
         QueryRequest request = new QueryRequest.Builder()
                 .query(query)
                 .format("json")
@@ -62,6 +61,6 @@ public class ElasticSearchClient implements ClientInterface {
 
         QueryResponse response = client.sql().query(request);
         String res = JsonpUtils.toJsonString(response, client._jsonpMapper());
-        return mapper.readTree(res);
+        return res;
     }
 }

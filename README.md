@@ -50,42 +50,32 @@ SearchLibrary library = new SearchLibrary("opensearch");
 String doc = library.getDocumentById("index_name", "id");
 ```
 
-[//]: # (### Search Documents)
+### Search Documents
 
-[//]: # ()
-[//]: # (```java)
 
-[//]: # (List<ObjectNode> results = ElasticsearchOperations.searchDocuments&#40;client, "index_name", "search_term", "field_name"&#41;;)
+```java
 
-[//]: # (```)
+List<ObjectNode> results = library.searchDocuments("index_name", "search_term", "field_name");
 
-[//]: # (### Get Documents by Date Range)
+```
 
-[//]: # ()
-[//]: # (```java)
+### Get Documents by Date Range
 
-[//]: # (List<ObjectNode> documents = getDocumentsByDateRange&#40;)
 
-[//]: # (    client,)
+```java
 
-[//]: # (    "my_index",)
+List<ObjectNode> documents = lilbrary.getDocumentsByDateRange(
+    "my_index",
+    "dateField",
+    "startDate",
+    "endDate",
+    "dateFormat"
+);
+```
 
-[//]: # (    "dateField",)
+The default date format used by Elasticsearch is yyyy-MM-dd. 
 
-[//]: # (    "startDate",)
-
-[//]: # (    "endDate",)
-
-[//]: # (    "dateFormat")
-
-[//]: # (&#41;;)
-
-[//]: # (```)
-
-[//]: # ()
-[//]: # (The default date format used by Elasticsearch is yyyy-MM-dd. )
-
-[//]: # (You can use multiple date formats such as dd/MM/yyyy, dd-MM-yyyy, etc.)
+You can use multiple date formats such as dd/MM/yyyy, dd-MM-yyyy, etc.
 
 ### Sql Query Builder
 

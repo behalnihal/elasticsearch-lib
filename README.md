@@ -64,7 +64,7 @@ List<ObjectNode> results = library.searchDocuments("index_name", "search_term", 
 
 ```java
 
-List<ObjectNode> documents = lilbrary.getDocumentsByDateRange(
+List<ObjectNode> documents = library.getDocumentsByDateRange(
     "my_index",
     "dateField",
     "startDate",

@@ -121,4 +121,4 @@ All methods throw `IOException`. Make sure to handle these exceptions in your co
 
 ## Note
 
-This library assumes you're using the Elasticsearch Java API. Ensure you have the correct dependencies in your project.
+This library assumes you're using the Elasticsearch/Opensearch Java API. Ensure you have the correct dependencies in your project.

@@ -35,14 +35,12 @@ or
 SearchLibrary library = new SearchLibrary("opensearch");
 ```
 
-[//]: # (### Search Index)
+### Search Index
 
-[//]: # (```java)
-
-[//]: # (boolean foo = ElasticsearchOperations.searchIndex&#40;client, indexName&#41;;)
-
-[//]: # (```)
-[//]: # (this method returns a boolean if the index indexName exists or not.)
+```java
+boolean foo = library.searchIndex(indexName);
+```
+this method returns a boolean if the index indexName exists or not.
 
 ### Get Document by ID
 

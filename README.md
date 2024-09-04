@@ -1,11 +1,11 @@
 # Elasticsearch Library
 
-This library provides a simple interface for Elasticsearch/Opensearch operations using the Elasticsearch Java API.
+This library provides a simple interface for Elasticsearch/Opensearch operations using the respective Java API.
 
 ## Setup
 
 1. Download this project.
-2. Open project in desired IDE.
+2. Open project in desired IDE (IntelliJ IDEA recommended).
 3. run command
  ``` mvn clean install ```
 4. Now add the dependency in your pom.xml file
